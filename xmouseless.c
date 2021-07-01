@@ -147,6 +147,7 @@ void scroll(float x, float y) {
 void init_x() {
     int i;
     int screen;
+
     /* initialize support for concurrent threads */
     XInitThreads();
 
