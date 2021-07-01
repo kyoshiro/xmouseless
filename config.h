@@ -26,6 +26,12 @@ static MoveBinding move_bindings[] = {
     { XK_j,         0,     1 },
 };
 
+/* moves the mouse pointer to the center */
+static CenterBinding center_bindings[] = {
+    /* key */
+    { XK_c },
+};
+
 /* 1: left
  * 2: middle
  * 3: right */
@@ -53,7 +59,7 @@ static ScrollBinding scroll_bindings[] = {
 static ShellBinding shell_bindings[] = {
     /* key         command */
     { XK_0,        "xdotool mousemove 0 0" },
-    { XK_c,        "xdotool mousemove 960 540" },
+    { XK_1,        "xdotool mousemove 960 540" },
 };
 
 /* exits on key release which allows click and exit with one key */
