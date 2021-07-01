@@ -26,10 +26,14 @@ static MoveBinding move_bindings[] = {
     { XK_j,         0,     1 },
 };
 
-/* moves the mouse pointer to the center */
-static CenterBinding center_bindings[] = {
-    /* key */
-    { XK_c },
+/* moves the mouse pointer to screen fraction position */
+static FractionBinding fraction_bindings[] = {
+    /* key  fractor x  fractor y */
+    { XK_c,         2,         2 },
+    { XK_x,         4,         4 },
+    { XK_v,         1.25,      4 },
+    { XK_m,         4,         1.25 },
+    { XK_comma,     1.25,      1.25 },
 };
 
 /* 1: left
