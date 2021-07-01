@@ -52,8 +52,8 @@ static ScrollBinding scroll_bindings[] = {
 /* executes shell commands */
 static ShellBinding shell_bindings[] = {
     /* key         command */
-    { XK_b,        "wmctrl -a firefox" },
     { XK_0,        "xdotool mousemove 0 0" },
+    { XK_c,        "xdotool mousemove 960 540" },
 };
 
 /* exits on key release which allows click and exit with one key */
