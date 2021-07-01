@@ -31,9 +31,9 @@ static FractionBinding fraction_bindings[] = {
     /* key  fractor x  fractor y */
     { XK_c,         2,         2 },
     { XK_x,         4,         4 },
-    { XK_v,         1.25,      4 },
-    { XK_m,         4,         1.25 },
-    { XK_comma,     1.25,      1.25 },
+    { XK_v,         1.33,      4 },
+    { XK_m,         4,         1.33 },
+    { XK_comma,     1.33,      1.33 },
 };
 
 /* 1: left
@@ -63,7 +63,6 @@ static ScrollBinding scroll_bindings[] = {
 static ShellBinding shell_bindings[] = {
     /* key         command */
     { XK_0,        "xdotool mousemove 0 0" },
-    { XK_1,        "xdotool mousemove 960 540" },
 };
 
 /* exits on key release which allows click and exit with one key */
