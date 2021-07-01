@@ -22,7 +22,9 @@ typedef struct {
 
 typedef struct {
     KeySym keysym;
-} CenterBinding;
+    float x;
+    float y;
+} FractionBinding;
 
 typedef struct {
     KeySym keysym;
@@ -212,12 +214,11 @@ void handle_key(KeyCode keycode, Bool is_press) {
         }
     }
 
-    /* center bindings */
-    for (i = 0; i < LENGTH(center_bindings); i++) {
-        if (center_bindings[i].keysym == keysym) {
-            int sign = is_press ? 1 : -1;
-            move_absolute((float) width / 2,
-                          (float) height / 2);
+    /* fraction bindings */
+    for (i = 0; i < LENGTH(fraction_bindings); i++) {
+        if (fraction_bindings[i].keysym == keysym) {
+            move_absolute((float) width / fraction_bindings[i].x,
+                          (float) height / fraction_bindings[i].y);
         }
     }
 
