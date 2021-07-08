@@ -22,6 +22,12 @@ typedef struct {
 
 typedef struct {
     KeySym keysym;
+    float x;
+    float y;
+} FractionBinding;
+
+typedef struct {
+    KeySym keysym;
     unsigned int button;
 } ClickBinding;
 
@@ -46,8 +52,11 @@ typedef struct {
 
 
 Display *dpy;
+Screen *scrn;
 Window root;
 pthread_t movethread;
+int width;
+int height;
 
 static unsigned int speed;
 
@@ -68,6 +77,7 @@ struct {
 
 void get_pointer();
 void move_relative(float x, float y);
+void move_absolute(float x, float y);
 void click(unsigned int button, Bool is_press);
 void click_full(unsigned int button);
 void scroll(float x, float y);
@@ -89,6 +99,14 @@ void get_pointer() {
 void move_relative(float x, float y) {
     mouseinfo.x += x;
     mouseinfo.y += y;
+    XWarpPointer(dpy, None, root, 0, 0, 0, 0,
+            (int) mouseinfo.x, (int) mouseinfo.y);
+    XFlush(dpy);
+}
+
+void move_absolute(float x, float y) {
+    mouseinfo.x = x;
+    mouseinfo.y = y;
     XWarpPointer(dpy, None, root, 0, 0, 0, 0,
             (int) mouseinfo.x, (int) mouseinfo.y);
     XFlush(dpy);
@@ -136,6 +154,10 @@ void init_x() {
     dpy = XOpenDisplay((char *) 0);
     screen = DefaultScreen(dpy);
     root = RootWindow(dpy, screen);
+
+	scrn = DefaultScreenOfDisplay(dpy);
+	width = scrn->width;
+	height = scrn->height;
 
     /* turn auto key repeat off */
     XAutoRepeatOff(dpy);
@@ -193,6 +215,14 @@ void handle_key(KeyCode keycode, Bool is_press) {
         }
     }
 
+    /* fraction bindings */
+    for (i = 0; i < LENGTH(fraction_bindings); i++) {
+        if (fraction_bindings[i].keysym == keysym) {
+            move_absolute((float) width / fraction_bindings[i].x,
+                          (float) height / fraction_bindings[i].y);
+        }
+    }
+
     /* click bindings */
     for (i = 0; i < LENGTH(click_bindings); i++) {
         if (click_bindings[i].keysym == keysym) {
@@ -231,7 +261,7 @@ void handle_key(KeyCode keycode, Bool is_press) {
             }
         }
 
-        /* exit */ 
+        /* exit */
         for (i = 0; i < LENGTH(exit_keys); i++) {
             if (exit_keys[i] == keysym) {
                 close_x(EXIT_SUCCESS);
@@ -244,7 +274,6 @@ int main () {
     char keys_return[32];
     int rc;
     int i, j;
-
     init_x();
 
     get_pointer();

@@ -26,6 +26,16 @@ static MoveBinding move_bindings[] = {
     { XK_j,         0,     1 },
 };
 
+/* moves the mouse pointer to screen fraction position */
+static FractionBinding fraction_bindings[] = {
+    /* key  fractor x  fractor y */
+    { XK_c,         2,         2 },
+    { XK_x,         4,         4 },
+    { XK_v,         1.33,      4 },
+    { XK_m,         4,         1.33 },
+    { XK_comma,     1.33,      1.33 },
+};
+
 /* 1: left
  * 2: middle
  * 3: right */
@@ -53,7 +63,6 @@ static ScrollBinding scroll_bindings[] = {
 static ShellBinding shell_bindings[] = {
     /* key         command */
     { XK_0,        "xdotool mousemove 0 0" },
-    { XK_c,        "xdotool mousemove 960 540" },
 };
 
 /* exits on key release which allows click and exit with one key */
